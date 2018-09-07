@@ -54,7 +54,7 @@ namespace SisAluguel.Migrations
                     cd_livro = table.Column<Guid>(nullable: false),
                     nm_livro = table.Column<string>(maxLength: 100, nullable: false),
                     st_livro = table.Column<int>(nullable: false),
-                    AluguelId = table.Column<Guid>(nullable: false)
+                    AluguelId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,7 +65,7 @@ namespace SisAluguel.Migrations
                         principalSchema: "dbo",
                         principalTable: "db_aluguel",
                         principalColumn: "cd_aluguel",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

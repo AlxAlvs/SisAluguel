@@ -17,8 +17,8 @@ namespace SisAluguel.Models
         [Required]
         public SituacaoAluguel SituacaoAluguel { get; set; }
 
-        public Guid AluguelId { get; set; }
+        public Guid? AluguelId { get; set; }
 
-        public Aluguel Aluguel { get; set; }
+        public virtual Aluguel Aluguel { get; set; }
     }
 }

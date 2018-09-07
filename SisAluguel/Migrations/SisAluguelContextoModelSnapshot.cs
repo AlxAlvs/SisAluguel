@@ -65,7 +65,7 @@ namespace SisAluguel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("cd_livro");
 
-                    b.Property<Guid>("AluguelId");
+                    b.Property<Guid?>("AluguelId");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -94,8 +94,7 @@ namespace SisAluguel.Migrations
                 {
                     b.HasOne("SisAluguel.Models.Aluguel", "Aluguel")
                         .WithMany("Livros")
-                        .HasForeignKey("AluguelId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AluguelId");
                 });
 #pragma warning restore 612, 618
         }

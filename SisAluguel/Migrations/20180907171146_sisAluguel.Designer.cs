@@ -10,7 +10,7 @@ using SisAluguel.Context;
 namespace SisAluguel.Migrations
 {
     [DbContext(typeof(SisAluguelContexto))]
-    [Migration("20180907162400_sisAluguel")]
+    [Migration("20180907171146_sisAluguel")]
     partial class sisAluguel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace SisAluguel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("cd_livro");
 
-                    b.Property<Guid>("AluguelId");
+                    b.Property<Guid?>("AluguelId");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -96,8 +96,7 @@ namespace SisAluguel.Migrations
                 {
                     b.HasOne("SisAluguel.Models.Aluguel", "Aluguel")
                         .WithMany("Livros")
-                        .HasForeignKey("AluguelId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AluguelId");
                 });
 #pragma warning restore 612, 618
         }
