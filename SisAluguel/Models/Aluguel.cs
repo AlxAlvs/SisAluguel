@@ -15,10 +15,7 @@ namespace SisAluguel.Models
 
         public Cliente Cliente { get; set; }
 
-        [Required]
-        public Guid LivroId { get; set; }
-
-        public Livro Livro { get; set; }
+        public IList<Livro> Livros { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "dd/mm/yyyy")]
