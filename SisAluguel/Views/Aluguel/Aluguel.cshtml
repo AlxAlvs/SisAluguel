@@ -1,0 +1,44 @@
+﻿@model SisAluguel.Models.ViewModelAluguel
+
+@{
+    ViewData["Title"] = "Aluguel";
+}
+
+<h2>Cadastrar aluguel</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Aluguel" asp-action="Cadastrar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                Cliente:
+                <select asp-for="IdCliente" asp-items="@ViewBag.Clientes">
+                    <option>Selecione</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Livro:
+                <select asp-for="IdLivro" asp-items="@ViewBag.Livros">
+                    <option>Selecione</option>
+                </select>
+            </div>
+            <div class="form-group">
+                Data de aluguel: 
+                <input asp-for="DataDeEmprestimo" class="form-control" />
+                <span asp-validation-for="DataDeEmprestimo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Data de devolucao: 
+                <input asp-for="DataDeDevolucao" class="form-control" />
+                <span asp-validation-for="DataDeDevolucao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cadastrar" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

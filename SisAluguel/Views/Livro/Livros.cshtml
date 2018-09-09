@@ -1,0 +1,76 @@
+﻿
+<h2>Livros</h2>
+
+<table id="tabelaLivros" class="table" style="display:none">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Situação</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody id="livros"></tbody>
+</table>
+
+<button class="btn btn-default" type="button" onclick="carregaLivros();">Listar</button>
+<button class="btn btn-default"> <a asp-area="" asp-controller="Home" asp-action="LivrosCadastrar">Cadastrar</a> </button>
+
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+            function carregaLivros() {
+                $("#tabelaLivros").css("display", "block");
+                $("#livros tr").remove();
+                $.ajax({
+                    type: 'GET',
+                    url: "https://localhost:44356/api/livro/",
+                    success: function (data) {
+
+                        $.each(data, function (key, val) {
+                            $('<tr><td>' + val.nome + '</td>' + '<td>' + (val.situacaoAluguel == 1 ? "Disponivel" : "Alugado") + '</td>' +
+                                '<td>' + '<a href="javascript:void(0);" onclick=deleteData("' + val.id + '"); return false;> <i class="glyphicon glyphicon-trash"></i>' + '</td></tr>')
+                                .appendTo($('#livros'));
+                        });
+                    }
+                });
+            }
+
+            function deleteData(id) {
+
+                bootbox.confirm({
+                    title: 'Remover Livro',
+                    message: 'Tem certeza de que deseja remover?',
+                    buttons: {
+                        'cancel': {
+                            label: 'Não',
+                            className: 'btn-default pull-right'
+                        },
+                        'confirm': {
+                            label: 'Sim',
+                            className: 'btn-primary margin-right-5'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+
+                            $.ajax({
+                                type: 'DELETE',
+                                url: 'https://localhost:44356/api/livro?id=' + id,
+
+                                success: function (result) {
+                                    window.location.reload();
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }
+    </script>
+    }
+    @Html.Raw(TempData["msg"])
+

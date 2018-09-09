@@ -26,7 +26,7 @@ namespace SisAluguel.Context.Maps
 
             builder.HasOne(x => x.Cliente).WithMany().HasForeignKey(x => x.ClienteId).IsRequired();
 
-            builder.HasMany(x => x.Livros).WithOne(x => x.Aluguel);
+            builder.HasOne(x => x.Livro).WithOne(x => x.Aluguel);
         }
     }
 }

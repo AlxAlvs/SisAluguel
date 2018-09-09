@@ -15,6 +15,16 @@ namespace SisAluguel.Controllers
             return View();
         }
 
+        public IActionResult Livros()
+        {
+            return View("../Livro/Livros");
+        }
+
+        public IActionResult LivrosCadastrar()
+        {
+            return View("../Livro/Cadastrar");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

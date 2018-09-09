@@ -61,7 +61,7 @@ namespace SisAluguel.Migrations
 
             modelBuilder.Entity("SisAluguel.Models.Livro", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("cd_livro");
 
@@ -77,7 +77,8 @@ namespace SisAluguel.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AluguelId");
+                    b.HasIndex("AluguelId")
+                        .IsUnique();
 
                     b.ToTable("db_livro","dbo");
                 });
@@ -93,8 +94,8 @@ namespace SisAluguel.Migrations
             modelBuilder.Entity("SisAluguel.Models.Livro", b =>
                 {
                     b.HasOne("SisAluguel.Models.Aluguel", "Aluguel")
-                        .WithMany("Livros")
-                        .HasForeignKey("AluguelId");
+                        .WithOne("Livro")
+                        .HasForeignKey("SisAluguel.Models.Livro", "AluguelId");
                 });
 #pragma warning restore 612, 618
         }

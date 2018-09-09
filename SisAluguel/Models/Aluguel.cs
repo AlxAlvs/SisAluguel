@@ -15,7 +15,7 @@ namespace SisAluguel.Models
 
         public Cliente Cliente { get; set; }
 
-        public IList<Livro> Livros { get; set; }
+        public Livro Livro { get; set; }
 
         [Required]
         [DisplayFormat(DataFormatString = "dd/mm/yyyy")]
@@ -26,5 +26,18 @@ namespace SisAluguel.Models
         [DisplayFormat(DataFormatString = "dd/mm/yyyy")]
         [DataType(DataType.Date, ErrorMessage = "Data em formato inválido")]
         public DateTime DataDeDevolucao { get; set; }
+
+        public Aluguel(Guid id, Guid clienteId, Livro livro, DateTime dataDeEmprestimo, DateTime dataDeDevolucao)
+        {
+            Id = id;
+            ClienteId = clienteId;
+            Livro = livro;
+            DataDeEmprestimo = dataDeEmprestimo;
+            DataDeDevolucao = dataDeDevolucao;
+        }
+
+        public Aluguel()
+        {
+        }
     }
 }

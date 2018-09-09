@@ -20,22 +20,38 @@ namespace SisAluguel.Controllers.Api
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IEnumerable<Livro> GetAll()
         {
-            return Ok(_sisAluguelContexto.Livros.ToList());
+            return _sisAluguelContexto.Livros.ToList();
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Livro livro)
+        public IActionResult Cadastrar([FromForm]Livro livro)
         {
-            livro.Id = Guid.NewGuid();
+            livro.Id = _sisAluguelContexto.Livros.ToList().Count + 1;
             livro.SituacaoAluguel = SituacaoAluguel.Disponível;
 
             _sisAluguelContexto.Livros.Add(livro);
-
             _sisAluguelContexto.SaveChanges();
 
-            return Ok(_sisAluguelContexto.Livros.ToList());
+            TempData["msg"] = "<script>alert('Cadastrado com sucesso ');</script>";
+
+            return View("livros");
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int Id)
+        {
+            var livro = _sisAluguelContexto.Livros.FirstOrDefault(i => i.Id==Id);
+            if (livro != null)
+            {
+                _sisAluguelContexto.Livros.Remove(livro);
+                _sisAluguelContexto.SaveChanges();
+                TempData["msg"] = "<script>alert('Removido com sucesso ');</script>";
+                return Ok();
+            }
+
+            return NoContent();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SisAluguel.Migrations
 {
@@ -51,7 +52,8 @@ namespace SisAluguel.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    cd_livro = table.Column<Guid>(nullable: false),
+                    cd_livro = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     nm_livro = table.Column<string>(maxLength: 100, nullable: false),
                     st_livro = table.Column<int>(nullable: false),
                     AluguelId = table.Column<Guid>(nullable: true)
@@ -78,7 +80,8 @@ namespace SisAluguel.Migrations
                 name: "IX_db_livro_AluguelId",
                 schema: "dbo",
                 table: "db_livro",
-                column: "AluguelId");
+                column: "AluguelId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
